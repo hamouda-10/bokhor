@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #5a2e1f;
+  --head: #c8653f;
+  --sky1: #fbeee3;
+  --sky2: #f0c9ae;
+  --field: #e9a17c;
+  --prod: #f4d2bb;
+  --white: #fff8f0;
+  --paper: #fdf6ef;
+  --hairline: rgba(90, 46, 31, 0.14);
+  --ease-figma: cubic-bezier(0, 0, 0.58, 1);
+  --font-ruqaa: "Aref Ruqaa", Georgia, serif;
+  --font-arabic-sans: "IBM Plex Sans Arabic", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html {
+  background: var(--sky1);
+  color: var(--ink);
+  font-family: var(--font-ruqaa);
+  overscroll-behavior: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbar only in story mode; keep clean scroll in storefront views */
+html.story-mode-active {
+  scrollbar-width: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html.story-mode-active::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--sky1);
+  color: var(--ink);
+  font-family: var(--font-ruqaa);
+  overflow-x: hidden;
+}
+
+.font-display,
+.font-ruqaa {
+  font-family: var(--font-ruqaa);
+}
+
+.font-sans-editorial {
+  font-family: var(--font-arabic-sans);
+}
+
+/* Focus-visible discipline */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Fixed stage layers (LTR coordinate space for exact 8-state geometry) */
+#stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  direction: ltr;
+}
+
+#stage .layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform, opacity;
+}
+
+#bgSky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #fbeee3 0%, #f8e2d1 45%, #f0c9ae 100%);
+}
+
+#bgField {
+  position: absolute;
+  inset: 0;
+  background: var(--field);
+  will-change: opacity;
+}
+
+#bgProd {
+  position: absolute;
+  inset: 0;
+  background: var(--prod);
+  will-change: opacity;
+}
+
+/* Load reveal animations (Figma ease-out 1000ms) */
+.ember-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: opacity 1000ms var(--ease-figma), transform 1000ms var(--ease-figma),
+    background-color 300ms ease, border-color 300ms ease;
+}
+
+.ember-nav.is-hidden-load {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.ember-nav.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ember-nav-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-aspect-ratio: 9/10) {
+  .ember-nav {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+  .ember-nav-links {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.headline-reveal-inner {
+  transition: opacity 1000ms var(--ease-figma) 120ms, transform 1000ms var(--ease-figma) 120ms;
+}
+
+.headline-reveal-inner.is-hidden-load {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+}
+
+.headline-reveal-inner.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ember-nav,
+  .headline-reveal-inner {
+    transition: none !important;
+  }
+  .ember-nav.is-hidden-load,
+  .headline-reveal-inner.is-hidden-load {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

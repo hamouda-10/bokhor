@@ -1,0 +1,6 @@
+{
+  "name": "إمبرليف — تذوّق الخريف",
+  "description": "دار إمبرليف للعطور الفاخرة والخلطات الخريفية — تجربة تفاعلية بصرية ومتجر متكامل لبيع العطور بالدولار الأمريكي.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
